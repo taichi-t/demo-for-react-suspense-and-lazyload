@@ -1,17 +1,21 @@
-import React, { lazy, Suspense, useState } from 'react';
+import React, { lazy, Suspense } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+// import About from './About';
+// import Home from './Home';
 
-const Now = lazy(() => import('./Now'));
+const About = lazy(() => import('./About'));
+const Home = lazy(() => import('./Home'));
 
 const App = () => {
-  const [open, setOpen] = useState(false);
-  const handleClick = () => {
-    setOpen(!open);
-  };
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <button onClick={handleClick}>Click</button>
-      {open && <Now />}
-    </Suspense>
+    <Router>
+      <Suspense fallback={<p>Loading...</p>}>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/about" component={About} />
+        </Switch>
+      </Suspense>
+    </Router>
   );
 };
 
